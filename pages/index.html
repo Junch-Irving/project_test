@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+</head>
+<body>
+    <h1>首页, 欢迎</h1>
+    <button id="logout">退出登录</button>
+
+    <script>
+        $(function() {
+            $.get('/api/username', (res)=>{
+                if(res.status == 0) {
+                    alert('欢迎你，'+res.username)
+                } else {
+                    alert('你尚未登陆，请登录后操作')
+                    location.href = './login.html'
+                }
+            })
+
+            $('#logout').on('click', function(){
+                $.post('/api/logout', (res)=>{
+                    if(res.status == 0) {
+                        location.href = './login.html'
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
